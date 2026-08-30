@@ -1,0 +1,94 @@
+/* ==========================================================================
+   Global tokens & resets
+   ========================================================================== */
+:root {
+  --cream: #fdf6f0;
+  --cream-soft: #fbeee6;
+  --blush: #f9d9d9;
+  --pink: #f4b5c1;
+  --pink-deep: #e88ea0;
+  --rose: #c96b7a;
+  --rose-deep: #a24857;
+  --burgundy: #6d1f2e;
+  --burgundy-deep: #4a1520;
+  --gold: #c9a34a;
+  --gold-soft: #e8c976;
+  --ink: #2a1a1f;
+  --ink-soft: #55414a;
+  --white: #ffffff;
+
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-script: 'Dancing Script', 'Brush Script MT', cursive;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --shadow-soft: 0 8px 30px rgba(109, 31, 46, 0.08);
+  --shadow-medium: 0 12px 40px rgba(109, 31, 46, 0.14);
+  --shadow-strong: 0 20px 60px rgba(109, 31, 46, 0.22);
+
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--pink);
+  color: var(--burgundy);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
