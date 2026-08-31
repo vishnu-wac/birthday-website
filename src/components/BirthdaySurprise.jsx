@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import FloatingHearts from './FloatingHearts.jsx';
+import FloatingBirthday from './FloatingBirthday.jsx';
 
 function Fireworks() {
   const bursts = Array.from({ length: 18 }, (_, i) => ({
@@ -86,7 +86,7 @@ export default function BirthdaySurprise({ wifeName, finalWish }) {
 
   return (
     <section className="surprise" id="surprise">
-      <FloatingHearts count={14} sparkles={16} />
+      <FloatingBirthday balloons={6} confetti={20} stars={10} />
       {showFireworks && <Fireworks />}
 
       <div className="surprise-inner">
@@ -99,8 +99,7 @@ export default function BirthdaySurprise({ wifeName, finalWish }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <p className="surprise-preheader">Wait…</p>
-              <p className="surprise-preheader">There's one more thing.</p>
+              <p className="surprise-preheader">🎂 One last thing…</p>
             </motion.div>
           )}
 
@@ -168,7 +167,6 @@ export default function BirthdaySurprise({ wifeName, finalWish }) {
                     transition={{ duration: 1.1, delay: 0.4 }}
                   >
                     <p className="surprise-wish">{finalWish}</p>
-                    <p className="surprise-signature">Always yours ❤</p>
                   </motion.div>
                 )}
               </AnimatePresence>

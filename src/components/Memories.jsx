@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import FloatingHearts from './FloatingHearts.jsx';
+import ChapterHeader from './ChapterHeader.jsx';
 
-// Gentle random tilts for the polaroid effect
 const rotations = [-2.4, 1.6, -1.1, 2.2, -1.8, 1.3, -0.7, 2.0];
 
 function PolaroidImage({ src, title }) {
@@ -11,7 +10,7 @@ function PolaroidImage({ src, title }) {
   if (failed) {
     return (
       <div className="polaroid-img" aria-hidden="true">
-        📷
+        <span className="polaroid-placeholder">❤</span>
       </div>
     );
   }
@@ -31,7 +30,6 @@ function MemoryModal({ memory, onClose }) {
   const [failed, setFailed] = useState(false);
   const closeRef = useRef(null);
 
-  // Focus close button and trap ESC
   useEffect(() => {
     closeRef.current?.focus();
     const onKey = (e) => {
@@ -74,7 +72,9 @@ function MemoryModal({ memory, onClose }) {
         </button>
 
         {failed ? (
-          <div className="modal-img" aria-hidden="true">📷</div>
+          <div className="modal-img" aria-hidden="true">
+            <span className="polaroid-placeholder">❤</span>
+          </div>
         ) : (
           <div className="modal-img">
             <img
@@ -88,49 +88,26 @@ function MemoryModal({ memory, onClose }) {
         <div className="modal-body">
           <p className="modal-date">{memory.date}</p>
           <h3 className="modal-title">{memory.title}</h3>
-          <p className="modal-caption">{memory.caption}</p>
+          {memory.caption && (
+            <p className="modal-caption">{memory.caption}</p>
+          )}
         </div>
       </motion.article>
     </motion.div>
   );
 }
 
-export default function Memories({ memories }) {
+export default function Memories({ chapter, memories }) {
   const [active, setActive] = useState(null);
 
   return (
     <section className="memories" id="memories">
-      <FloatingHearts count={5} sparkles={6} emoji="✿" />
-
       <div className="section-inner">
-        <motion.span
-          className="eyebrow"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Our story, in pictures
-        </motion.span>
-
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          📸 Our <em>Memories</em>
-        </motion.h2>
-
-        <motion.p
-          className="section-subtitle"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
-        >
-          Tap any photo to open it. Some of these still make me smile like an idiot.
-        </motion.p>
+        <ChapterHeader
+          number={chapter.number}
+          title={chapter.title}
+          subtitle="A stack of photos. Tap one to open it."
+        />
 
         <div className="polaroid-grid">
           {memories.map((m, i) => (
@@ -140,8 +117,8 @@ export default function Memories({ memories }) {
               style={{ transform: `rotate(${rotations[i % rotations.length]}deg)` }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.55, delay: i * 0.08 }}
               onClick={() => setActive(m)}
               aria-label={`Open memory: ${m.title}, ${m.date}`}
             >

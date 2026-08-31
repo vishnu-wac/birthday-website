@@ -2,17 +2,28 @@
    Global tokens & resets
    ========================================================================== */
 :root {
-  --cream: #fdf6f0;
-  --cream-soft: #fbeee6;
-  --blush: #f9d9d9;
-  --pink: #f4b5c1;
-  --pink-deep: #e88ea0;
-  --rose: #c96b7a;
-  --rose-deep: #a24857;
+  /* Warm pastel birthday palette — cream, peach, lavender, yellow, blush */
+  --ivory: #fdf7ee;
+  --cream: #faedd8;
+  --cream-soft: #f6e2c6;
+  --peach: #f5c9a9;
+  --peach-deep: #e5a67a;
+  --blush: #f6d1cd;
+  --pink: #f0b4bd;
+  --pink-deep: #d68792;
+  --lavender: #d6c6e6;
+  --lavender-deep: #b299cd;
+  --yellow: #f6dc7c;
+  --yellow-soft: #fbeaa8;
+  --mint: #c8e0c8;
+  --rose: #b0687a;
+  --rose-deep: #8b4a5c;
   --burgundy: #6d1f2e;
-  --burgundy-deep: #4a1520;
-  --gold: #c9a34a;
-  --gold-soft: #e8c976;
+  --burgundy-deep: #48141d;
+  --brown: #74513a;
+  --brown-soft: #8f6b4f;
+  --gold: #b8933f;
+  --gold-soft: #d9b866;
   --ink: #2a1a1f;
   --ink-soft: #55414a;
   --white: #ffffff;
@@ -45,7 +56,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: var(--cream);
+  background: var(--ivory);
   color: var(--ink);
   line-height: 1.6;
   overflow-x: hidden;

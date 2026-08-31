@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import ChapterHeader from './ChapterHeader.jsx';
 
-// Cinematic Hogwarts-letter open:
-//   closed    → parchment front, handwritten emerald address
+// Hogwarts-style letter open — the same one from earlier.
+//   closed    → parchment front with a handwritten emerald-ink address
 //   flipping  → envelope rotates Y 180° to show the wax-sealed back
-//   breaking  → wax seal cracks / falls
-//   opening   → back flap folds up, letter peeks out of the pouch
+//   breaking  → wax seal cracks and falls off
+//   opening   → back flap folds up, the letter peeks out
 //   open      → envelope disappears, full letter unfolds into view
-
-// Absolute delays (ms after tap) at which each stage begins.
+//
+// All timers are scheduled at once from the tap so Chrome's chained-timeout
+// throttling can't stall the sequence.
 const TIMELINE = [
   { stage: 'flipping', at: 0 },
   { stage: 'breaking', at: 900 },
-  { stage: 'opening', at: 1500 },
-  { stage: 'open', at: 2700 },
+  { stage: 'opening',  at: 1500 },
+  { stage: 'open',     at: 2700 },
 ];
 
-export default function LoveLetter({ loveLetter, husbandName, wifeName }) {
+export default function LoveLetter({ chapter, letter, husbandName, wifeName }) {
   const [stage, setStage] = useState('closed');
 
   const openIt = () => {
@@ -27,22 +29,18 @@ export default function LoveLetter({ loveLetter, husbandName, wifeName }) {
   };
 
   const flipped = stage !== 'closed';
-  const broken = ['breaking', 'opening', 'open'].includes(stage);
+  const broken  = ['breaking', 'opening', 'open'].includes(stage);
   const opening = ['opening', 'open'].includes(stage);
-  const isOpen = stage === 'open';
+  const isOpen  = stage === 'open';
 
   return (
     <section className="letter" id="letter">
       <div className="section-inner">
-        <motion.p
-          className="letter-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.9 }}
-        >
-          Okay… jokes aside. ❤️
-        </motion.p>
+        <ChapterHeader
+          number={chapter.number}
+          title={chapter.title}
+          subtitle="Tap the envelope."
+        />
 
         {!isOpen ? (
           <motion.div
@@ -68,24 +66,27 @@ export default function LoveLetter({ loveLetter, husbandName, wifeName }) {
               >
                 <div className="env-glow" aria-hidden="true" />
 
-                {/* FRONT — parchment + emerald-ink address */}
+                {/* ─── FRONT — parchment + emerald-ink address ─── */}
                 <div className="env-face env-front">
                   <div className="env-parchment" />
+
                   <div className="env-stamp" aria-hidden="true">
-                    <span className="env-stamp-heart">❤</span>
-                    <span className="env-stamp-caption">With Love</span>
+                    <span className="env-stamp-heart">🎂</span>
+                    <span className="env-stamp-caption">Owl Post</span>
                   </div>
+
                   <div className="env-address">
                     <p className="env-addr-name">Miss {wifeName}</p>
-                    <p>The Cosiest Home in Kerala,</p>
+                    <p>The Birthday Girl's Headquarters</p>
                     <p>Wherever She's Reading This Now</p>
                     <p className="env-addr-post">✦ By Owl Post ✦</p>
                   </div>
                 </div>
 
-                {/* BACK — wax seal + fold-up flap + letter peek */}
+                {/* ─── BACK — wax seal + fold-up flap ─── */}
                 <div className="env-face env-back">
                   <div className="env-parchment" />
+
                   <div className="env-letter-peek" aria-hidden="true">
                     <div className="env-letter-inner">
                       <span className="env-letter-heart">❤</span>
@@ -96,9 +97,11 @@ export default function LoveLetter({ loveLetter, husbandName, wifeName }) {
                       </span>
                     </div>
                   </div>
+
                   <div className="env-back-flap">
                     <div className="env-back-flap-inner" />
                   </div>
+
                   <div className="wax-seal" aria-hidden="true">
                     <span>❤</span>
                   </div>
@@ -118,12 +121,11 @@ export default function LoveLetter({ loveLetter, husbandName, wifeName }) {
             transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: 'top center' }}
           >
-            {/* Edit the letter body in src/data/birthdayData.js */}
-            <p className="letter-text">{loveLetter}</p>
-            <p className="letter-sign">
-              — Yours, always{husbandName ? `, ${husbandName}` : ''}{' '}
-              <span aria-hidden="true">❤</span>
-            </p>
+            {/* Edit the letter in src/data/birthdayData.js (birthdayLetter) */}
+            <p className="letter-text">{letter}</p>
+            {husbandName && (
+              <p className="letter-sign">— {husbandName}</p>
+            )}
           </motion.article>
         )}
       </div>

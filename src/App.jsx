@@ -1,72 +1,157 @@
-import { useRef } from 'react';
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { birthdayData } from './data/birthdayData.js';
 
+import Announcement from './components/Announcement.jsx';
 import Hero from './components/Hero.jsx';
-import BirthdayInvestigation from './components/BirthdayInvestigation.jsx';
-import LoveReasons from './components/LoveReasons.jsx';
+import BirthdayReport from './components/BirthdayReport.jsx';
+import ThingsYouDo from './components/ThingsYouDo.jsx';
 import Memories from './components/Memories.jsx';
-import Timeline from './components/Timeline.jsx';
-import RelationshipStats from './components/RelationshipStats.jsx';
-import LoveGame from './components/LoveGame.jsx';
+import Quiz from './components/Quiz.jsx';
+import Gifts from './components/Gifts.jsx';
+import BalloonGame from './components/BalloonGame.jsx';
 import LoveLetter from './components/LoveLetter.jsx';
 import BirthdaySurprise from './components/BirthdaySurprise.jsx';
-import MusicPlayer from './components/MusicPlayer.jsx';
+import FinalPhoto from './components/FinalPhoto.jsx';
 import EasterEgg from './components/EasterEgg.jsx';
+import ProgressNav from './components/ProgressNav.jsx';
+import BirthdayModeBadge from './components/BirthdayModeBadge.jsx';
+
+const NAV_ITEMS = [
+  { id: 'hero',           label: 'Start' },
+  { id: 'report',         label: 'Ch. 01' },
+  { id: 'things-you-do',  label: 'Ch. 02' },
+  { id: 'memories',       label: 'Ch. 03' },
+  { id: 'quiz',           label: 'Ch. 04' },
+  { id: 'gifts',          label: 'Ch. 05' },
+  { id: 'game',           label: 'Ch. 06' },
+  { id: 'letter',         label: 'Ch. 07' },
+  { id: 'surprise',       label: 'Ch. 08' },
+  { id: 'final-photo',    label: '🎂' },
+];
 
 export default function App() {
-  const investigationRef = useRef(null);
+  // Skip the announcement on subsequent visits within the same tab — nice
+  // during editing so you don't sit through it every reload.
+  const initialEntered =
+    typeof window !== 'undefined' &&
+    sessionStorage.getItem('bd-entered') === '1';
+  const [entered, setEntered] = useState(initialEntered);
 
-  const scrollToInvestigation = () => {
-    document
-      .getElementById('investigation')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const enter = () => {
+    try { sessionStorage.setItem('bd-entered', '1'); } catch {}
+    setEntered(true);
   };
+
+  const { chapters, easterEggs = [] } = birthdayData;
 
   return (
     <div className="app">
-      <Hero
-        heroPhoto={birthdayData.heroPhoto}
-        onContinue={scrollToInvestigation}
-      />
+      <AnimatePresence mode="wait">
+        {!entered && (
+          <Announcement
+            key="announce"
+            wifeName={birthdayData.wifeName}
+            onEnter={enter}
+          />
+        )}
+      </AnimatePresence>
 
-      <BirthdayInvestigation
-        caseFile={birthdayData.caseFile}
-        evidence={birthdayData.evidence}
-      />
+      {entered && (
+        <>
+          <BirthdayModeBadge />
+          <ProgressNav items={NAV_ITEMS} />
 
-      <LoveReasons reasons={birthdayData.reasons} />
+          <Hero
+            heroPhoto={birthdayData.heroPhoto}
+            wifeName={birthdayData.wifeName}
+          />
 
-      <Memories memories={birthdayData.memories} />
+          <BirthdayReport
+            chapter={chapters.report}
+            report={birthdayData.birthdayReport}
+            stamp={birthdayData.reportStamp}
+          />
 
-      <Timeline timeline={birthdayData.timeline} />
+          <ThingsYouDo
+            chapter={chapters.thingsYouDo}
+            items={birthdayData.thingsYouDo}
+          />
 
-      <RelationshipStats stats={birthdayData.stats} />
+          {/* First hidden Easter egg between "Things You Do" and the photos */}
+          {easterEggs[0] && (
+            <EasterEgg
+              trigger={easterEggs[0].trigger}
+              reveal={easterEggs[0].reveal}
+              align="left"
+            />
+          )}
 
-      <LoveGame messages={birthdayData.heartMessages} />
+          <Memories
+            chapter={chapters.memories}
+            memories={birthdayData.memories}
+          />
 
-      <EasterEgg />
+          <Quiz
+            chapter={chapters.quiz}
+            quiz={birthdayData.quiz}
+            results={birthdayData.quizResults}
+          />
 
-      <LoveLetter
-        loveLetter={birthdayData.loveLetter}
-        wifeName={birthdayData.wifeName}
-        husbandName={birthdayData.husbandName}
-      />
+          <Gifts
+            chapter={chapters.gifts}
+            gifts={birthdayData.gifts}
+          />
 
-      <BirthdaySurprise
-        wifeName={birthdayData.wifeName}
-        finalWish={birthdayData.finalWish}
-      />
+          {/* Second hidden Easter egg between gifts and the game */}
+          {easterEggs[1] && (
+            <EasterEgg
+              trigger={easterEggs[1].trigger}
+              reveal={easterEggs[1].reveal}
+              align="right"
+            />
+          )}
 
-      <footer className="footer">
-        Made with <span className="footer-heart">❤</span> just for you,{' '}
-        {birthdayData.wifeName}.
-      </footer>
+          <BalloonGame
+            chapter={chapters.game}
+            messages={birthdayData.balloonMessages}
+          />
 
-      <MusicPlayer
-        src={birthdayData.music}
-        title={birthdayData.musicTitle}
-      />
+          <LoveLetter
+            chapter={chapters.letter}
+            letter={birthdayData.birthdayLetter}
+            husbandName={birthdayData.husbandName}
+            wifeName={birthdayData.wifeName}
+          />
+
+          <BirthdaySurprise
+            wifeName={birthdayData.wifeName}
+            finalWish={birthdayData.finalWish}
+          />
+
+          {/* Third hidden Easter egg — quiet corner just before the closing photo */}
+          {easterEggs[2] && (
+            <EasterEgg
+              trigger={easterEggs[2].trigger}
+              reveal={easterEggs[2].reveal}
+              align="center"
+            />
+          )}
+
+          <FinalPhoto
+            photo={birthdayData.finalPhoto}
+            fallbackPhoto={birthdayData.heroPhoto}
+            caption={birthdayData.closingCaption}
+            tagline={birthdayData.closingTagline}
+          />
+
+          <footer className="footer">
+            Made with <span className="footer-heart">❤</span> just for you,{' '}
+            {birthdayData.wifeName}.
+          </footer>
+        </>
+      )}
     </div>
   );
 }

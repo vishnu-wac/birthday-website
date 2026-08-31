@@ -1,6 +1,6 @@
 // ============================================================================
-//  💌  Personalize everything here.
-//  Change these values and the whole website updates.
+//  🎂  Edit everything here to personalize the birthday page.
+//      Tone: fun / cute / playful / a little bit romantic.
 // ============================================================================
 
 export const birthdayData = {
@@ -10,236 +10,204 @@ export const birthdayData = {
   wifeName: 'Neenu',
   husbandName: 'Vishnu',
 
-  // Hero photo — replace with a real image at public/assets/photos/hero.jpg
+  // Hero photo (round frame). Replace with a favourite photo of the two of you.
   heroPhoto: '/assets/photos/hero.jpg',
 
+  // Optional distinct closing photo. Falls back to heroPhoto if missing.
+  finalPhoto: '/assets/photos/final.jpg',
+
   // -----------------------------------------------------------
-  // Case file (Investigation section)
+  // Chapter labels (used by ChapterHeader)
   // -----------------------------------------------------------
-  caseFile: {
-    name: 'Neenu',
-    age: 'Classified 🔐',
-    status: 'Married',
-    occupation: 'Professional Husband Controller',
-    dangerLevel: 'Extremely Cute',
+  chapters: {
+    report:    { number: '01', title: 'Official Birthday Report',        emoji: '📋' },
+    thingsYouDo: { number: '02', title: 'Things You Do',                 emoji: '😂' },
+    memories:  { number: '03', title: 'Some Good Times',                 emoji: '📸' },
+    quiz:      { number: '04', title: 'How Well Do You Know Your Husband?', emoji: '🧐' },
+    gifts:     { number: '05', title: 'Choose Your Birthday Gift',       emoji: '🎁' },
+    game:      { number: '06', title: 'Pop The Balloons',                emoji: '🎈' },
+    letter:    { number: '07', title: 'A Letter For You',                emoji: '💌' },
+    finale:    { number: '08', title: 'One Last Thing…',                 emoji: '🎂' },
   },
 
-  evidence: [
-    { id: '01', emoji: '❤️', text: 'She stole my heart.' },
-    { id: '02', emoji: '😂', text: 'She also steals my food.' },
-    { id: '03', emoji: '💸', text: 'Somehow she knows whenever I buy something.' },
-    { id: '04', emoji: '😴', text: 'Says "I\'m not sleepy" and falls asleep five minutes later.' },
-    { id: '05', emoji: '❤️', text: 'Still the person I want beside me every single day.' },
+  // -----------------------------------------------------------
+  // Official Birthday Report card
+  // -----------------------------------------------------------
+  birthdayReport: [
+    { field: 'Name',                       value: 'Neenu' },
+    { field: 'Current Age',                value: 'CLASSIFIED 🔐' },
+    { field: 'Birthday Status',            value: 'EXTREMELY SPECIAL ⭐⭐⭐⭐⭐' },
+    { field: 'Cuteness Level',             value: 'UNREASONABLE' },
+    { field: 'Patience with Husband',      value: 'UNDER INVESTIGATION' },
+    { field: 'Ability to steal food',      value: '100%' },
+    { field: 'Ability to control husband', value: '100%' },
+    { field: 'Cake Requirement',           value: 'MANDATORY 🎂' },
+  ],
+  reportStamp: 'FILED WITH JOY · TODAY',
+
+  // -----------------------------------------------------------
+  // Things You Do (funny observations)
+  // -----------------------------------------------------------
+  thingsYouDo: [
+    'Saying "I\'m ready" when you\'re definitely not ready.',
+    'Taking forever to decide what to eat, then ordering what I suggested first.',
+    'Stealing food from my plate — even after ordering your own.',
+    'Saying "nothing" when there is very clearly something.',
+    'Somehow knowing exactly when I\'m hiding something.',
+    'Being cute on purpose and then pretending you had no idea.',
+    'Saying "5 more minutes" and meaning 45.',
+    'Winning every argument and then reminding me about it later. 😂',
   ],
 
   // -----------------------------------------------------------
-  // Reasons I Love You (interactive flip cards)
-  // -----------------------------------------------------------
-  reasons: [
-    {
-      title: 'Your Smile',
-      icon: '😊',
-      description:
-        'Somehow it can turn a completely bad day into a good one. It\'s unfair how easily you do that.',
-    },
-    {
-      title: 'Your Craziness',
-      icon: '🤪',
-      description:
-        'Life would be considerably more boring without your madness. Please never change.',
-    },
-    {
-      title: 'Your Kindness',
-      icon: '🥹',
-      description:
-        'You have such a beautiful heart. The world is softer because you\'re in it.',
-    },
-    {
-      title: 'The Way You Care',
-      icon: '❤️',
-      description:
-        'Sometimes you don\'t even realize how much the little things you do mean to me.',
-    },
-    {
-      title: 'Your Laugh',
-      icon: '😆',
-      description:
-        'That specific one where you can\'t breathe — that\'s my favourite sound in the world.',
-    },
-    {
-      title: 'Simply… You',
-      icon: '❤️',
-      description: 'I don\'t need a reason anymore. Just you being you is enough.',
-    },
-  ],
-
-  // -----------------------------------------------------------
-  // Memories (photo gallery)
-  // Replace images at /public/assets/photos/memory-XX.jpg
+  // Photo memories — playful captions
   // -----------------------------------------------------------
   memories: [
+    { image: '/assets/photos/memory-01.jpg', title: 'Look at us. 😂',            date: 'once upon a time' },
+    { image: '/assets/photos/memory-02.jpg', title: 'One of my favourites.',     date: 'that day' },
+    { image: '/assets/photos/memory-03.jpg', title: 'We actually looked good.',  date: 'august 2021' },
+    { image: '/assets/photos/memory-04.jpg', title: 'Proof that we go outside.', date: 'somewhere in Kerala' },
+    { image: '/assets/photos/memory-05.jpg', title: 'Another day, another adventure.', date: 'a good trip' },
+    { image: '/assets/photos/memory-06.jpg', title: 'Why do we look so serious? 😂', date: 'no idea' },
+  ],
+
+  // -----------------------------------------------------------
+  // How Well Do You Know Your Husband? quiz
+  // Each question: two options. correct is the index (0 or 1).
+  // Set correct: null for opinion questions — any answer scores.
+  // -----------------------------------------------------------
+  quiz: [
     {
-      image: '/assets/photos/memory-01.jpg',
-      title: 'The Beginning',
-      date: '2020',
-      caption:
-        'Two people who didn\'t know how important they would become to each other.',
+      question: 'Who is more likely to say "I\'m hungry"?',
+      options: ['Husband', 'Wife'],
+      correct: 0,
     },
     {
-      image: '/assets/photos/memory-02.jpg',
-      title: 'First Meeting',
-      date: '2020',
-      caption:
-        'The first time I saw you in person — every doubt in my head just went quiet.',
+      question: 'Who takes longer to get ready?',
+      options: ['Husband', 'Wife'],
+      correct: 1,
     },
     {
-      image: '/assets/photos/memory-03.jpg',
-      title: 'The Wedding',
-      date: 'August 2021',
-      caption: 'A small gathering. A lifetime of promises. The best day of my life.',
+      question: 'Who is more likely to steal food from the other person\'s plate?',
+      options: ['Husband', 'Wife'],
+      correct: 1,
     },
     {
-      image: '/assets/photos/memory-04.jpg',
-      title: 'Our Kerala Rides',
-      date: '2022',
-      caption:
-        'Rain, roads, and you holding on behind me. I could ride like that forever.',
+      question: 'Who wins more arguments?',
+      options: ['Husband (in his dreams)', 'Wife (always)'],
+      correct: 1,
     },
     {
-      image: '/assets/photos/memory-05.jpg',
-      title: 'That One Trip',
-      date: '2023',
-      caption:
-        'You laughing at something silly I said. I didn\'t want that moment to end.',
+      question: 'Who says "I\'ll be there in 5 minutes" and lies?',
+      options: ['Husband', 'Wife'],
+      correct: 0,
     },
     {
-      image: '/assets/photos/memory-06.jpg',
-      title: 'Ordinary Days',
-      date: 'Every day',
-      caption:
-        'The best memories aren\'t always the big ones. Sometimes it\'s just… chai with you.',
+      question: 'Who loves the other person more?',
+      options: ['Obviously me 😎', 'Obviously you ❤️'],
+      correct: null, // opinion — both are "correct"
+    },
+  ],
+
+  quizResults: [
+    { min: 0, message: 'Hmm. We should probably talk. 😂' },
+    { min: 3, message: 'Not bad. You know me almost as well as I know your snack drawer.' },
+    { min: 5, message: 'Certified expert on your husband. Congratulations. 🏆' },
+  ],
+
+  // -----------------------------------------------------------
+  // Choose Your Birthday Gift
+  // -----------------------------------------------------------
+  gifts: [
+    {
+      label: 'Gift #1',
+      title: 'The Emotional Support Package',
+      message: 'Unlimited hugs. Redeemable any day. No expiry.',
+    },
+    {
+      label: 'Gift #2',
+      title: 'The Long-Term Investment',
+      message: 'One husband, ready to annoy you for another whole year. 😂',
+    },
+    {
+      label: 'Gift #3',
+      title: 'The Obvious One',
+      message: 'Cake. Obviously. 🎂',
+    },
+    {
+      label: 'Secret Gift',
+      title: 'The Best One',
+      message:
+        'You already have the best gift.\nME. 😎\n\nOkay okay, don\'t throw anything at the screen. 😂',
     },
   ],
 
   // -----------------------------------------------------------
-  // Our Timeline
+  // Balloon game — surprise messages when you pop one
   // -----------------------------------------------------------
-  timeline: [
-    {
-      icon: '❤️',
-      date: '2020',
-      title: 'The Beginning',
-      story:
-        'A profile, a click, a quiet hope. Neither of us knew what was coming.',
-    },
-    {
-      icon: '💕',
-      date: '2020',
-      title: 'First Meeting',
-      story:
-        'The first time I saw you, everything I had imagined was surpassed. I was quietly gone.',
-    },
-    {
-      icon: '🥰',
-      date: '2020 – 2021',
-      title: 'Falling',
-      story:
-        'Long conversations. Nervous laughs. Small texts that meant everything.',
-    },
-    {
-      icon: '💍',
-      date: 'August 2021',
-      title: 'Marriage',
-      story:
-        'A small pandemic wedding. A sacred thali. A lifetime beginning.',
-    },
-    {
-      icon: '🏠',
-      date: '2021 – 2025',
-      title: 'Our Life Together',
-      story:
-        'Kerala rides on the Unicorn, restaurant tables set for two, and a home built slowly out of ordinary days.',
-    },
-    {
-      icon: '❤️',
-      date: 'Today',
-      title: 'Your Birthday',
-      story:
-        'One more year of you. One more year of me being lucky.',
-    },
-    {
-      icon: '♾️',
-      date: 'Forever',
-      title: 'Everything Ahead',
-      story:
-        'Another birthday. Another year together. Another chapter of our story.\nAnd honestly… I still choose you. Every single time. ❤️',
-    },
+  balloonMessages: [
+    'Pop! 🎉',
+    'You\'re the best!',
+    'Cake incoming 🎂',
+    'One more!',
+    'Wife > everyone',
+    '❤',
+    '🎈',
+    'Look at you go!',
+    'You\'re unstoppable',
   ],
 
   // -----------------------------------------------------------
-  // Relationship Analytics (funny stats)
+  // Chapter 07 — the letter inside the Hogwarts-style envelope.
+  // Keep it short and birthday-toned. Edit freely.
   // -----------------------------------------------------------
-  stats: [
-    { label: 'Arguments won by wife', value: 97, unit: '%' },
-    { label: 'Arguments won by husband', value: 3, unit: '%' },
-    { label: 'Times wife said "I\'m fine"', value: 999, unit: '+' },
-    { label: 'Actual probability she was fine', value: 0.0001, unit: '%' },
-    { label: 'Times husband said "I love you"', value: '∞', unit: '' },
-    { label: 'Times wife stole husband\'s food', value: 'CLASSIFIED', unit: '' },
+  birthdayLetter: `Neenu,
+
+Jokes apart for a second.
+
+There's a lot I could say today,
+but mostly I just want you to know this —
+
+you're my favourite person,
+and I'm really glad you were born.
+
+Have the best birthday ever.
+And save me a slice of cake. 🎂❤`,
+
+  // -----------------------------------------------------------
+  // Final cake wish (revealed after the candle goes out)
+  // -----------------------------------------------------------
+  finalWish: `I hope you have an amazing year ahead.
+
+Keep smiling.
+Keep being crazy.
+Keep being you.
+
+And yes… you're stuck with me for another year. 😂❤
+
+HAVE THE BEST BIRTHDAY EVER! 🎂🎉`,
+
+  // -----------------------------------------------------------
+  // Closing screen
+  // -----------------------------------------------------------
+  closingCaption: 'Happy Birthday, Neenu ❤',
+  closingTagline: 'Now go eat your cake. 🎂😂',
+
+  // -----------------------------------------------------------
+  // Easter eggs — small hidden triggers scattered on the page
+  // -----------------------------------------------------------
+  easterEggs: [
     {
-      label: 'Times husband looked at wife and thought "I\'m lucky"',
-      value: '∞',
-      unit: '',
+      trigger: '🤫 Don\'t click this.',
+      reveal: 'You really don\'t listen, do you? 😂',
+    },
+    {
+      trigger: '👀 Secret',
+      reveal: 'Okay, fine. Happy Birthday again. ❤',
+    },
+    {
+      trigger: '⚠️ Husband Settings',
+      reveal: 'Status: Completely under wife\'s control. As it should be.',
     },
   ],
-
-  // -----------------------------------------------------------
-  // Mini game — hidden messages inside caught hearts
-  // -----------------------------------------------------------
-  heartMessages: [
-    'I love your smile.',
-    'You\'re my favourite person.',
-    'You\'re stuck with me. 😂',
-    'Forever sounds good with you.',
-    'I love you. ❤️',
-    'You make ordinary days feel special.',
-    'Home is wherever you are.',
-    'You are my person.',
-  ],
-
-  // -----------------------------------------------------------
-  // Love Letter — write your own here 💌
-  // -----------------------------------------------------------
-  loveLetter: `There are so many things I could write today.
-
-I could tell you how beautiful you are.
-I could tell you how much I love you.
-I could tell you how lucky I feel to have you.
-
-But somehow, none of those words feel big enough.
-
-You are not just someone I love.
-You are my person. My home. My favourite conversation.
-And the person I want beside me through all the ordinary and extraordinary days ahead.
-
-Happy Birthday, my love. ❤️`,
-
-  // -----------------------------------------------------------
-  // Final surprise wish
-  // -----------------------------------------------------------
-  finalWish: `My wish for you is simple…
-
-May you always smile.
-May you always feel loved.
-And may I always be there
-to annoy you for the rest of our lives. 😂❤️
-
-Happy Birthday, my love.
-I LOVE YOU. ❤️`,
-
-  // -----------------------------------------------------------
-  // Music (optional, put the file at /public/assets/music/our-song.mp3)
-  // -----------------------------------------------------------
-  music: '/assets/music/our-song.mp3',
-  musicTitle: 'Our Song',
 };
