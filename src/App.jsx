@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { birthdayData } from './data/birthdayData.js';
@@ -69,6 +69,14 @@ export default function App() {
   };
 
   const { chapters, easterEggs = [] } = birthdayData;
+
+  // Keep the browser tab title neutral until the reveal. Once the birthday
+  // arrives (or preview mode is on), swap to the happy-birthday title.
+  useEffect(() => {
+    document.title = revealed
+      ? `Happy Birthday, ${birthdayData.wifeName} 🎂❤`
+      : 'Save the Date 🎂';
+  }, [revealed]);
 
   if (!revealed) {
     return (
