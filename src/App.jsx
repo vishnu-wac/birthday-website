@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { birthdayData } from './data/birthdayData.js';
 
+import Countdown from './components/Countdown.jsx';
 import Announcement from './components/Announcement.jsx';
 import Hero from './components/Hero.jsx';
 import BirthdayReport from './components/BirthdayReport.jsx';
@@ -32,6 +33,29 @@ const NAV_ITEMS = [
 ];
 
 export default function App() {
+  // Birthday-date gate. Before the target moment, show a countdown; once time
+  // reaches it, the countdown auto-flips to the birthday site. Preview via
+  // ?preview=1 in the URL, or by setting sessionStorage.bd-preview.
+  const target = useMemo(
+    () => new Date(birthdayData.birthdayDate),
+    []
+  );
+
+  const previewMode =
+    typeof window !== 'undefined' &&
+    (new URLSearchParams(window.location.search).get('preview') === '1' ||
+      sessionStorage.getItem('bd-preview') === '1');
+
+  const [revealed, setRevealed] = useState(
+    () => previewMode || Date.now() >= target.getTime()
+  );
+
+  // Persist the preview override for the rest of this browser tab session so
+  // the page doesn't slam back to the countdown on a refresh mid-editing.
+  if (previewMode) {
+    try { sessionStorage.setItem('bd-preview', '1'); } catch {}
+  }
+
   // Skip the announcement on subsequent visits within the same tab — nice
   // during editing so you don't sit through it every reload.
   const initialEntered =
@@ -45,6 +69,19 @@ export default function App() {
   };
 
   const { chapters, easterEggs = [] } = birthdayData;
+
+  if (!revealed) {
+    return (
+      <div className="app">
+        <Countdown
+          target={target}
+          wifeName={birthdayData.wifeName}
+          birthdayLabel={birthdayData.birthdayLabel}
+          onDone={() => setRevealed(true)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="app">

@@ -10,6 +10,12 @@ export const birthdayData = {
   wifeName: 'Neenu',
   husbandName: 'Vishnu',
 
+  // Birthday date (local time). Before this moment the site shows a countdown;
+  // from this moment onward the full birthday site is revealed. Add ?preview=1
+  // to any URL to bypass the countdown while testing.
+  birthdayDate: '2026-09-05T00:00:00',
+  birthdayLabel: 'September 5th',
+
   // Hero photo (round frame). Replace with a favourite photo of the two of you.
   heroPhoto: '/assets/photos/hero.jpg',
 
