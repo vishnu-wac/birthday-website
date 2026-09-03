@@ -11,7 +11,7 @@ import ThingsYouDo from './components/ThingsYouDo.jsx';
 import Memories from './components/Memories.jsx';
 import Quiz from './components/Quiz.jsx';
 import Gifts from './components/Gifts.jsx';
-import BalloonGame from './components/BalloonGame.jsx';
+import ReasoningChallenge from './components/ReasoningChallenge.jsx';
 import LoveLetter from './components/LoveLetter.jsx';
 import BirthdaySurprise from './components/BirthdaySurprise.jsx';
 import FinalPhoto from './components/FinalPhoto.jsx';
@@ -158,9 +158,10 @@ export default function App() {
             />
           )}
 
-          <BalloonGame
+          <ReasoningChallenge
             chapter={chapters.game}
-            messages={birthdayData.balloonMessages}
+            questions={birthdayData.reasoning}
+            prize={birthdayData.prize}
           />
 
           <LoveLetter

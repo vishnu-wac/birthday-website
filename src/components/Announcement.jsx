@@ -67,23 +67,12 @@ export default function Announcement({ wifeName, onEnter }) {
         <AnimatePresence>
           {stage >= 3 && (
             <>
-              <motion.h1
-                key="reveal"
-                className="announcement-big"
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: 'easeOut' }}
-              >
-                HAPPY BIRTHDAY,
-                <span>{wifeName?.toUpperCase()}! 🎉</span>
-              </motion.h1>
-
               <motion.p
                 key="prep"
                 className="announcement-prep"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.9, delay: 0.35 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9 }}
               >
                 Okay, let's see what your husband prepared… 👀
               </motion.p>
@@ -95,7 +84,7 @@ export default function Announcement({ wifeName, onEnter }) {
                 onClick={onEnter}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -104,15 +93,6 @@ export default function Announcement({ wifeName, onEnter }) {
             </>
           )}
         </AnimatePresence>
-
-        <button
-          type="button"
-          className="announcement-skip"
-          onClick={onEnter}
-          aria-label="Skip intro"
-        >
-          skip
-        </button>
       </div>
     </motion.section>
   );
