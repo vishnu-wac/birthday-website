@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import FallingLeaves from './FallingLeaves.jsx';
 
 // Quiet closing screen — one photograph and three short lines.
 export default function FinalPhoto({ photo, fallbackPhoto, caption, tagline }) {
@@ -8,6 +9,7 @@ export default function FinalPhoto({ photo, fallbackPhoto, caption, tagline }) {
 
   return (
     <section className="final-photo" id="final-photo">
+      <FallingLeaves count={11} />
       <div className="section-inner final-photo-inner">
         <motion.div
           className="final-photo-frame"
