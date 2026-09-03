@@ -185,25 +185,25 @@ export const birthdayData = {
   reasoning: [
     {
       prompt: 'Number Series — what comes next?',
-      question: '3 · 6 · 12 · 24 · ?',
-      options: ['30', '36', '48', '60'],
+      question: '2 · 3 · 5 · 8 · 13 · ?',
+      options: ['18', '20', '21', '24'],
       correct: 2,
-      hint: 'Each number is doubled.',
+      hint: 'Each number is the sum of the previous two.',
     },
     {
-      prompt: 'Odd One Out — which one doesn\'t belong?',
-      question: 'Apple · Banana · Mango · Carrot',
-      options: ['Apple', 'Banana', 'Mango', 'Carrot'],
+      prompt: 'Coding — if A = 1, B = 2, C = 3 …',
+      question: 'What is the sum of the letters in the word LOVE?',
+      options: ['46', '50', '52', '54'],
       correct: 3,
-      hint: 'Three of them are fruits.',
+      hint: 'L = 12, O = 15, V = 22, E = 5.',
     },
     {
-      prompt: 'Quick Word Problem —',
+      prompt: 'Direction Sense —',
       question:
-        'A birthday cake costs ₹500. The shop is giving 20% off. How much do you pay?',
-      options: ['₹350', '₹400', '₹450', '₹480'],
-      correct: 1,
-      hint: '20% of 500 is 100.',
+        'A person walks 4 km East, then turns North and walks 3 km. What is the shortest distance from the starting point?',
+      options: ['3 km', '4 km', '5 km', '7 km'],
+      correct: 2,
+      hint: 'Draw the path — it forms a right-angled triangle.',
     },
   ],
 
