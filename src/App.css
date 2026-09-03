@@ -115,6 +115,78 @@
 }
 
 /* ==========================================================================
+   Reveal flash (only shown when the clock hits zero live — 2s bridge)
+   ========================================================================== */
+.reveal-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(246, 220, 124, 0.55) 0%, transparent 60%),
+    radial-gradient(ellipse at 15% 85%, rgba(214, 198, 230, 0.4) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(246, 209, 205, 0.55) 0%, transparent 55%),
+    linear-gradient(180deg, #fdf3e6 0%, #f5c9a9 100%);
+  overflow: hidden;
+}
+
+.reveal-flash-inner {
+  position: relative;
+  max-width: 620px;
+}
+
+.reveal-flash-eyebrow {
+  display: inline-block;
+  background: var(--white);
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  margin-bottom: 26px;
+  box-shadow: 0 10px 24px rgba(139, 74, 92, 0.22);
+}
+
+.reveal-flash-title {
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 15vw, 6rem);
+  line-height: 1;
+  color: var(--burgundy);
+  letter-spacing: -0.01em;
+  text-shadow: 0 6px 40px rgba(232, 174, 122, 0.35);
+}
+
+.reveal-flash-heart {
+  display: inline-block;
+  color: var(--rose);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 0.7em;
+  margin-left: 8px;
+  animation: revealPulse 1.4s ease-in-out infinite;
+}
+@keyframes revealPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.18); }
+}
+
+.reveal-flash-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--brown);
+  font-size: clamp(1.1rem, 3vw, 1.35rem);
+  margin-top: 22px;
+}
+
+/* ==========================================================================
    Announcement splash (playful opening)
    ========================================================================== */
 .announcement {
@@ -2872,6 +2944,15 @@ section {
   color: var(--pink);
   display: inline-block;
   animation: beat 1.6s ease-in-out infinite;
+}
+
+.footer-sign {
+  font-family: var(--font-script);
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.05rem;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
 }
 
 @keyframes beat {

@@ -1,7 +1,36 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw, Lightbulb, Check, X } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import ChapterHeader from './ChapterHeader.jsx';
+
+// Fire a small celebratory burst when the voucher reveals.
+function celebrateWin() {
+  const palette = ['#f4b8a3', '#f7d774', '#c6b3e0', '#f9c1cf', '#e5a765', '#b8933f'];
+  confetti({
+    particleCount: 110,
+    spread: 75,
+    startVelocity: 48,
+    origin: { x: 0.5, y: 0.55 },
+    colors: palette,
+  });
+  setTimeout(() => {
+    confetti({
+      particleCount: 60,
+      spread: 90,
+      startVelocity: 40,
+      origin: { x: 0.2, y: 0.7 },
+      colors: palette,
+    });
+    confetti({
+      particleCount: 60,
+      spread: 90,
+      startVelocity: 40,
+      origin: { x: 0.8, y: 0.7 },
+      colors: palette,
+    });
+  }, 320);
+}
 
 // A tiny 3-question reasoning game (bank-exam flavoured, kept easy).
 // Answer all 3 correctly → the Amazon voucher is revealed as the prize.
@@ -28,6 +57,14 @@ export default function ReasoningChallenge({ chapter, questions, prize }) {
       setFeedback('wrong');
     }
   };
+
+  // Confetti on win.
+  useEffect(() => {
+    if (done) {
+      const t = setTimeout(celebrateWin, 300);
+      return () => clearTimeout(t);
+    }
+  }, [done]);
 
   // Right → hold the green flash briefly, then advance.
   // Wrong → let her see the miss, then reset so she can try again.

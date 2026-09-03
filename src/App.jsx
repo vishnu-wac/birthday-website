@@ -4,6 +4,7 @@ import './App.css';
 import { birthdayData } from './data/birthdayData.js';
 
 import Countdown from './components/Countdown.jsx';
+import RevealTransition from './components/RevealTransition.jsx';
 import Announcement from './components/Announcement.jsx';
 import Hero from './components/Hero.jsx';
 import BirthdayReport from './components/BirthdayReport.jsx';
@@ -21,14 +22,14 @@ import BirthdayModeBadge from './components/BirthdayModeBadge.jsx';
 
 const NAV_ITEMS = [
   { id: 'hero',           label: 'Start' },
-  { id: 'report',         label: 'Ch. 01' },
-  { id: 'things-you-do',  label: 'Ch. 02' },
-  { id: 'memories',       label: 'Ch. 03' },
-  { id: 'quiz',           label: 'Ch. 04' },
-  { id: 'gifts',          label: 'Ch. 05' },
-  { id: 'game',           label: 'Ch. 06' },
-  { id: 'letter',         label: 'Ch. 07' },
-  { id: 'surprise',       label: 'Ch. 08' },
+  { id: 'report',         label: 'Ch. I' },
+  { id: 'things-you-do',  label: 'Ch. II' },
+  { id: 'memories',       label: 'Ch. III' },
+  { id: 'quiz',           label: 'Ch. IV' },
+  { id: 'gifts',          label: 'Ch. V' },
+  { id: 'game',           label: 'Ch. VI' },
+  { id: 'letter',         label: 'Ch. VII' },
+  { id: 'surprise',       label: 'Ch. VIII' },
   { id: 'final-photo',    label: '🎂' },
 ];
 
@@ -49,6 +50,9 @@ export default function App() {
   const [revealed, setRevealed] = useState(
     () => previewMode || Date.now() >= target.getTime()
   );
+  // Set true only when the countdown literally hits zero live — one-time
+  // "it's your day!" flash between countdown and Announcement.
+  const [revealing, setRevealing] = useState(false);
 
   // Persist the preview override for the rest of this browser tab session so
   // the page doesn't slam back to the countdown on a refresh mid-editing.
@@ -81,12 +85,22 @@ export default function App() {
   if (!revealed) {
     return (
       <div className="app">
-        <Countdown
-          target={target}
-          wifeName={birthdayData.wifeName}
-          birthdayLabel={birthdayData.birthdayLabel}
-          onDone={() => setRevealed(true)}
-        />
+        {revealing ? (
+          <RevealTransition
+            wifeName={birthdayData.wifeName}
+            onComplete={() => {
+              setRevealed(true);
+              setRevealing(false);
+            }}
+          />
+        ) : (
+          <Countdown
+            target={target}
+            wifeName={birthdayData.wifeName}
+            birthdayLabel={birthdayData.birthdayLabel}
+            onDone={() => setRevealing(true)}
+          />
+        )}
       </div>
     );
   }
@@ -193,8 +207,13 @@ export default function App() {
           />
 
           <footer className="footer">
-            Made with <span className="footer-heart">❤</span> just for you,{' '}
-            {birthdayData.wifeName}.
+            <p>
+              Made with <span className="footer-heart">❤</span> just for you,{' '}
+              {birthdayData.wifeName}.
+            </p>
+            <p className="footer-sign">
+              by {birthdayData.husbandName} · September 2026
+            </p>
           </footer>
         </>
       )}
